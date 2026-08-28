@@ -1,0 +1,29 @@
+# Build & Dependency Outputs
+backend/target/
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+
+# Local Upload Storage & Databases
+backend-uploads/
+backend/backend-uploads/
+*.db
+*.sqlite
+
+# Environment Files & Credentials
+.env
+.env.local
+*.env
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# IDE & System Files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
