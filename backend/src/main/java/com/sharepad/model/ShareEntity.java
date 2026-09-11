@@ -20,7 +20,7 @@ public class ShareEntity {
     private String code;
 
     @Lob
-    @Column(columnDefinition = "CLOB")
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     private String passwordHash;
