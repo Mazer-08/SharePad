@@ -24,6 +24,15 @@ sharepad:
     bucket: ${R2_BUCKET_NAME:sharepad-storage}
     region: auto
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
+
 logging:
   level:
     com.sharepad: INFO
