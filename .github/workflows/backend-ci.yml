@@ -12,7 +12,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/sharepad-backend
+  IMAGE_NAME: mazer-08/sharepad-backend
 
 jobs:
   build-and-push:
