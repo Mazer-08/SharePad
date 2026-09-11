@@ -82,6 +82,9 @@ jobs:
             FULL_IMAGE="${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
             echo "Deploying ${FULL_IMAGE} to K3s cluster..."
 
+            # Apply any manifest updates (Ingress, Service, Probes, etc.)
+            kubectl apply -f https://raw.githubusercontent.com/Mazer-08/SharePad/${IMAGE_TAG}/k8s/app.yaml
+
             # Update the deployment to use the exact commit SHA tag
             kubectl set image deployment/sharepad-backend sharepad-backend=${FULL_IMAGE} -n sharepad
 
