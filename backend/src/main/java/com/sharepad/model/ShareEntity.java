@@ -19,7 +19,6 @@ public class ShareEntity {
     @Column(length = 32, nullable = false, unique = true)
     private String code;
 
-    @Lob
     @Column(columnDefinition = "TEXT")
     private String content;
 
