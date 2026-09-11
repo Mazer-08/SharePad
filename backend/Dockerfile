@@ -12,8 +12,8 @@ COPY src ./src
 RUN mvn clean package -DskipTests -B
 
 # ---- Runtime stage ----
-# Multi-arch runtime image for linux/amd64 and linux/arm64
-FROM eclipse-temurin:17-jre-alpine
+# Official multi-arch image for linux/amd64 and linux/arm64
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/sharepad-backend-1.0.0-SNAPSHOT.jar app.jar
 
