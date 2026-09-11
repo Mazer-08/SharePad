@@ -64,24 +64,24 @@ jobs:
     steps:
       - name: Deploy to Oracle VM via SSH
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          REGISTRY: ${{ env.REGISTRY }}
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          IMAGE_TAG: ${{ needs.build-and-push.outputs.image_tag }}
         with:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USERNAME }}
           key: ${{ secrets.VM_SSH_KEY }}
           envs: REGISTRY,IMAGE_NAME,IMAGE_TAG
-        env:
-          REGISTRY: ${{ env.REGISTRY }}
-          IMAGE_NAME: ${{ env.IMAGE_NAME }}
-          IMAGE_TAG: ${{ needs.build-and-push.outputs.image_tag }}
-        script: |
-          set -e
-          FULL_IMAGE="${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
-          echo "Deploying ${FULL_IMAGE} to K3s cluster..."
+          script: |
+            set -e
+            FULL_IMAGE="${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+            echo "Deploying ${FULL_IMAGE} to K3s cluster..."
 
-          # Update the deployment to use the exact commit SHA tag
-          kubectl set image deployment/sharepad-backend sharepad-backend=${FULL_IMAGE} -n sharepad
+            # Update the deployment to use the exact commit SHA tag
+            kubectl set image deployment/sharepad-backend sharepad-backend=${FULL_IMAGE} -n sharepad
 
-          # Monitor rolling update until healthy
-          kubectl rollout status deployment/sharepad-backend -n sharepad --timeout=120s
+            # Monitor rolling update until healthy
+            kubectl rollout status deployment/sharepad-backend -n sharepad --timeout=120s
 
-          echo "Successfully deployed commit ${IMAGE_TAG} to sharepad!"
+            echo "Successfully deployed commit ${IMAGE_TAG} to sharepad!"
