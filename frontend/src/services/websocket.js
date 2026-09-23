@@ -11,7 +11,8 @@ export class ShareWebSocket {
 
   connect() {
     this.isExplicitClose = false;
-    let url = `import.meta.env.VITE_WS_URL || 'ws://localhost:8080/ws'?code=${encodeURIComponent(this.shareCode)}`;
+    const baseUrl = import.meta.env.VITE_WS_URL || 'ws://localhost:8080/ws';
+    let url = `${baseUrl}?code=${encodeURIComponent(this.shareCode)}`;
     if (this.token) {
       url += `&token=${encodeURIComponent(this.token)}`;
     }
